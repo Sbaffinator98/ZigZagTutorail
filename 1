@@ -1,0 +1,65 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PallaControllo : MonoBehaviour
+{
+
+    [SerializeField]
+    private float speed;
+    bool partito;
+
+    Rigidbody rb;
+
+    void Awake ()
+    {
+
+        rb = GetComponent<Rigidbody> ();
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb.velocity = new Vector3(0, 0, 0);
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+       if (!partito) //per far partire non all'avvio dell app ma al primo click
+       {
+            if (Input.GetMouseButtonDown(0))
+            {
+                rb.velocity = new Vector3(speed, 0, 0);
+                partito = true; 
+            }
+        }
+
+        if (Input.GetMouseButtonDown (0))
+        {
+
+            CambiaDirezione ();
+        }
+    }
+
+    //Funzione per cambiare la direzione
+    void CambiaDirezione ()
+    {
+        
+
+
+        if (rb.velocity.z > 0) //se si muove sulla z passa alla x
+        {
+            rb.velocity = new Vector3 (speed, 0, 0);
+            
+
+        } else if (rb.velocity.x > 0) //se si muove sulla asse x la velocità passa alla z
+        {
+            rb.velocity = new Vector3 (0, 0,speed);
+            
+        }
+
+    }
+}
